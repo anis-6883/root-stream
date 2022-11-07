@@ -64,7 +64,7 @@
             <div class="flex-center position-ref full-height">
                 <div class="content">
                     <div class="title m-b-md">
-                        Welcome to HotSerial
+                        Welcome to RootStream
                     </div>
                     @if (Route::has('login'))
                         <a href="{{ route('login') }}" class="btn btn-warning">Login Page</a>
