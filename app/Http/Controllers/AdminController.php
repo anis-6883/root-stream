@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -21,56 +22,60 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $admins = User::orderBy('id', 'DESC')->get();
 
+        if(Auth::user()->can('admin.view')) 
+        {
+            $admins = User::orderBy('id', 'DESC')->get();
 
-        if($request->ajax()) {
-            return DataTables::of($admins)
-            ->addColumn('image', function($admin){
-                return '<img class="img-sm img-thumbnail" src="' . asset($admin->image) . '">';
-            })
-            ->addColumn('fullname', function($admin){
-                return $admin->full_name;
-            })
-            ->addColumn('role', function($admin){
-                return $admin->getRoleNames()->implode(', ');
-            })
-            ->addColumn('status', function($admin){
-                if($admin->status == 1){
-                    return '<span class="badge rounded-pill border border-success text-success">Active</span>';
-                }else{
-                    return '<span class="badge rounded-pill border border-danger text-danger">In-Active</span>';
-                }
-            })
-            ->addColumn('action', function($admin){
-                return '<div class="dropdown">
-                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Action
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="' . route('admins.edit', $admin->id) . '" class="dropdown-item">
-                                        <i class="fas fa-edit"></i>
-                                            Edit
-                                    </a>
-                                </li>
-                                <li>
-                                    <form action="' . route('admins.destroy', $admin->id) . '" method="post" class="ajax-delete">'
-                                        . csrf_field() 
-                                        . method_field('DELETE') 
-                                        . '<button type="button" class="btn-remove dropdown-item">
-                                                <i class="fas fa-trash-alt"></i>
-                                                    Delete
-                                            </button>
-                                    </form>
-                                </li>
-                            </ul>
-                    </div>';
-            })
-            ->rawColumns(['image', 'role', 'fullname', 'status', 'action'])
-            ->make(true);
+            if($request->ajax()) {
+                return DataTables::of($admins)
+                ->addColumn('image', function($admin){
+                    return '<img class="img-sm img-thumbnail" src="' . asset($admin->image) . '">';
+                })
+                ->addColumn('fullname', function($admin){
+                    return $admin->full_name;
+                })
+                ->addColumn('role', function($admin){
+                    return $admin->getRoleNames()->implode(', ');
+                })
+                ->addColumn('status', function($admin){
+                    if($admin->status == 1){
+                        return '<span class="badge rounded-pill border border-success text-success">Active</span>';
+                    }else{
+                        return '<span class="badge rounded-pill border border-danger text-danger">In-Active</span>';
+                    }
+                })
+                ->addColumn('action', function($admin){
+                    return '<div class="dropdown">
+                                <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Action
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="' . route('admins.edit', $admin->id) . '" class="dropdown-item">
+                                            <i class="fas fa-edit"></i>
+                                                Edit
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <form action="' . route('admins.destroy', $admin->id) . '" method="post" class="ajax-delete">'
+                                            . csrf_field() 
+                                            . method_field('DELETE') 
+                                            . '<button type="button" class="btn-remove dropdown-item">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                        Delete
+                                                </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                        </div>';
+                })
+                ->rawColumns(['image', 'role', 'fullname', 'status', 'action'])
+                ->make(true);
+            }
+            return view('admins.index');
         }
-        return view('admins.index');
+        abort(403);
     }
 
     /**
@@ -80,8 +85,12 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-        return view("admins.create", compact('roles'));
+        if(Auth::user()->can('admin.create')) 
+        {
+            $roles = Role::all();
+            return view("admins.create", compact('roles'));
+        }
+        abort(403);
     }
 
     /**
@@ -120,7 +129,7 @@ class AdminController extends Controller
         
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $ImageName = 'ADMIN_' .time() . '.' . $image->getClientOriginalExtension();
+            $ImageName = 'ADMIN_' . rand() . '.' . uniqid() . '.' . $image->getClientOriginalExtension();
             $image->move(base_path('public/uploads/images/admins/'), $ImageName);
             $admin->image = 'public/uploads/images/admins/' . $ImageName;
         }
@@ -140,9 +149,13 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $admin = User::findOrFail($id);
-        $roles = Role::all();
-        return view("admins.edit", compact('admin', 'roles'));
+        if(Auth::user()->can('admin.edit')) 
+        {
+            $admin = User::findOrFail($id);
+            $roles = Role::all();
+            return view("admins.edit", compact('admin', 'roles'));
+        }
+        abort(403);
     }
 
     /**
@@ -211,19 +224,23 @@ class AdminController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $admin = User::findOrFail($id);
-        $image_path = $admin->image;
-
-        if($image_path != "public/default/profile.png")
-            if(File::exists($image_path))
-                File::delete($image_path);
-
-        $admin->delete();
-
-        if (!$request->ajax()) {
-            return back()->with('success', 'Information has been deleted!');
-        } else {
-            return response()->json(['result' => 'success', 'message' => 'Information has been deleted sucessfully']);
+        if(Auth::user()->can('admin.delete')) 
+        {
+            $admin = User::findOrFail($id);
+            $image_path = $admin->image;
+    
+            if($image_path != "public/default/profile.png")
+                if(File::exists($image_path))
+                    File::delete($image_path);
+    
+            $admin->delete();
+    
+            if (!$request->ajax()) {
+                return back()->with('success', 'Information has been deleted!');
+            } else {
+                return response()->json(['result' => 'success', 'message' => 'Information has been deleted sucessfully']);
+            }
         }
+        abort(403);
     }
 }

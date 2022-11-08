@@ -19,8 +19,8 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->can('permission.view')) {
-
+        if(Auth::user()->can('permission.view')) 
+        {
             $permissions = DB::table('permissions')->orderBy('id', 'DESC')->get();
 
             if($request->ajax()) {
@@ -58,7 +58,7 @@ class PermissionController extends Controller
             }
             return view('permissions.index');
         }
-        abort(404);
+        abort(403, "Sorry. You are unauthorize to access this page!");
     }
 
     /**
@@ -68,7 +68,11 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('permissions.create');
+        if(Auth::user()->can('permission.create')) 
+        {
+            return view('permissions.create');
+        }
+        abort(403);
     }
 
     /**
@@ -105,8 +109,12 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = DB::table('permissions')->where('id', $id)->first();
-        return view('permissions.edit', compact('permission'));
+        if(Auth::user()->can('permission.edit')) 
+        {
+            $permission = DB::table('permissions')->where('id', $id)->first();
+            return view('permissions.edit', compact('permission'));
+        }
+        abort(403);
     }
 
     /**
@@ -149,12 +157,16 @@ class PermissionController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        DB::table('permissions')->where('id', $id)->delete();
-
-        if (!$request->ajax()) {
-            return back()->with('success', 'Information has been deleted!');
-        } else {
-            return response()->json(['result' => 'success', 'message' => 'Information has been deleted sucessfully']);
+        if(Auth::user()->can('permission.delete')) 
+        {
+            DB::table('permissions')->where('id', $id)->delete();
+    
+            if (!$request->ajax()) {
+                return back()->with('success', 'Information has been deleted!');
+            } else {
+                return response()->json(['result' => 'success', 'message' => 'Information has been deleted sucessfully']);
+            }
         }
+        abort(403);
     }
 }

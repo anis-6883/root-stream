@@ -1,6 +1,15 @@
-@extends('layouts.app')
-
-@section('css-stylesheet')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html">
+    <meta name="author" content="Muhammad Anisuzzaman">
+    <meta name="description" content="Final Year Project">
+    <meta name="keywords" content="RootStream">
+    <link rel="shortcut icon" href="{{ asset('public/default/favicon.png') }}"/>
+    <title>RootStream</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
 
         html, body {
@@ -54,25 +63,25 @@
             margin-bottom: 30px;
         }
     </style>
-@endsection
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-
-            <div class="flex-center position-ref full-height">
-                <div class="content">
-                    <div class="title m-b-md">
-                        Welcome to RootStream
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+    
+                <div class="flex-center position-ref full-height">
+                    <div class="content">
+                        <div class="title m-b-md">
+                            Welcome to RootStream
+                        </div>
+                        @if (Route::has('login'))
+                            <a href="{{ route('login') }}" class="btn btn-warning">Login Page</a>
+                        @endif
                     </div>
-                    @if (Route::has('login'))
-                        <a href="{{ route('login') }}" class="btn btn-warning">Login Page</a>
-                    @endif
                 </div>
+    
             </div>
-
         </div>
     </div>
-</div>
-@endsection
+</body>
+</html>

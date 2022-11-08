@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('public/backend/plugins/core/core.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('public/backend/plugins/prismjs/prism.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('public/backend/plugins/datatables.net-bs5/dataTables.bootstrap5.css') }}">
     <link rel="stylesheet" href="{{ asset('public/backend/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/backend/plugins/dropify/dropify.min.css') }}">
