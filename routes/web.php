@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Install\InstallController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,10 @@ Route::middleware(['install'])->group(function () {
 
         Route::get('/dashboard', function(){
             return view('dashboard');
-        });
+        })->name('dashboard');
+
+        Route::resource('permissions', PermissionController::class);
+        Route::resource('roles', RoleController::class);
 
     });
 

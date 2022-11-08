@@ -1,19 +1,27 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    @yield('css-stylesheet')
-</head>
-<body>
-    <div id="app">
-        <main>
-            @yield('content')
-        </main>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Head -->
+    @include('layouts.includes._head')
+
+    <body class="sidebar-dark">
+        <div class="main-wrapper">
+            <!-- Sidebar -->
+            @include('layouts.includes._sidebar')
+            @include('layouts.includes._settings-sidebar')
+
+            <div class="page-wrapper">
+            <!-- Navbar -->
+                @include('layouts.includes._navbar')
+
+                <div class="page-content">
+                    @yield('content')
+                </div>
+
+                <!-- Footer -->
+                @include('layouts.includes._footer')
+            </div>
+        </div>
+        <!-- Scripts -->
+        @include('layouts.includes._script')
+    </body>
 </html>
