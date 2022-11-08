@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('user_type', 63);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('image', 255)->default('default/profile.png');
+            $table->string('image', 255)->default('public/default/profile.png');
             $table->integer('status')->default(1);
 
             $table->rememberToken();

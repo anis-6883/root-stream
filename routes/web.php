@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Install\InstallController;
 use App\Http\Controllers\Auth\LoginController;
@@ -32,6 +33,7 @@ Route::middleware(['install'])->group(function () {
 
         Route::resource('permissions', PermissionController::class);
         Route::resource('roles', RoleController::class);
+        Route::resource('admins', AdminController::class);
 
     });
 

@@ -7,10 +7,10 @@
     <meta http-equiv="content-type" content="text/html">
     <meta name="author" content="Muhammad Anisuzzaman">
     <meta name="description" content="Final Year Project">
-    <meta name="keywords" content="Booking Hotel">
+    <meta name="keywords" content="Manage Live Match Streaming">
     <link rel="shortcut icon" href="{{ asset('public/default/favicon.png') }}"/>
 
-    <title>Booking Advisor | @yield('auth_title')</title>
+    <title>RootStream</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
