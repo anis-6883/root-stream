@@ -90,9 +90,10 @@
                                         <input type="file" class="form-control dropify" name="image" data-allowed-file-extensions="png jpg jpeg PNG JPG JPEG">
                                     </div>
                                 </div><!-- Col -->
-                                <div class="col-sm-12 mb-4">
-                                    <div class="mt-2 d-flex justify-content-end" id="submit-trigger">
-                                        <button type="submit" class="btn btn-primary submit">Submit <i class="fas fa-angle-double-right"></i></button>
+                                <div class="col-sm-12 mb-2">
+                                    <div class="mt-2 d-flex justify-content-end">
+                                        <button type="reset" class="btn btn-danger me-2">Reset</button>
+                                        <button type="submit" class="btn btn-primary submit">Submit</button>
                                     </div>
                                 </div><!-- Col -->
                             </div>

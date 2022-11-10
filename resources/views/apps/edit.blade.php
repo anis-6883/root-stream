@@ -165,7 +165,7 @@
                                 </div><!-- Col -->
                                 <div class="col-sm-12 mb-4">
                                     <div class="mt-2 d-flex justify-content-end" id="submit-trigger">
-                                        <button type="submit" class="btn btn-primary submit">Submit <i class="fas fa-angle-double-right"></i></button>
+                                        <button type="submit" class="btn btn-primary submit">Update</button>
                                     </div>
                                 </div><!-- Col -->
                             </div><!-- Row -->

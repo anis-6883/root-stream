@@ -41,8 +41,8 @@
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-12 mb-4">
-                                    <div class="mt-2 d-flex justify-content-start">
-                                        <button type="submit" class="btn btn-primary submit">Update <i class="fas fa-angle-double-right"></i></button>
+                                    <div class="mt-2">
+                                        <button type="submit" class="btn btn-primary submit">Update</button>
                                     </div>
                                 </div><!-- Col -->
                             </div><!-- Row -->

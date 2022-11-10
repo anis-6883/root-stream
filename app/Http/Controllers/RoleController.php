@@ -20,7 +20,7 @@ class RoleController extends Controller
     {
         if(Auth::user()->can('role.view')) 
         {
-            $roles = DB::table('roles')->orderBy('id', 'DESC')->get();
+            $roles = Role::all();
 
             if($request->ajax()) {
                 return DataTables::of($roles)

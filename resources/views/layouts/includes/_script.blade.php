@@ -23,11 +23,11 @@
     })
 
     @if (Session::has('success'))
-            Toast.fire({
-                icon: 'success',
-                title: '{{ session('success') }}',
-            })
-        @endif
+        Toast.fire({
+            icon: 'success',
+            title: '{{ session('success') }}',
+        })
+    @endif
         
     @if (Session::has('error'))
         Toast.fire({

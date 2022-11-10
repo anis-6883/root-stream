@@ -19,6 +19,19 @@
              </a>
           </li>
 
+          @if (Auth::user()->hasPermissionTo('sports_type.access'))
+
+               <li class="nav-item nav-category">Live Control</li>
+
+               <li class="nav-item {{ request()->routeIs('sports_types*') ? 'active' : '' }}">
+                  <a href="{{ route('sports_types.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="layers"></i>
+                    <span class="link-title">Sports Types</span>
+                  </a>
+               </li>
+               
+          @endif
+
           @if (Auth::user()->hasPermissionTo('app.access'))
 
                <li class="nav-item nav-category">App</li>
@@ -27,7 +40,7 @@
                   <a class="nav-link" data-bs-toggle="collapse" href="#apps" role="button" aria-expanded="{{ request()->routeIs('apps*') ? 'true' : 'false' }}" aria-controls="apps">
                   {{-- <i class="link-icon" data-feather="apps"></i> --}}
                   <i class="link-icon fab fa-app-store-ios"></i>
-                  <span class="link-title">App</span>
+                  <span class="link-title">Apps</span>
                   <i class="link-arrow" data-feather="chevron-down"></i>
                   </a>
                   <div class="collapse {{ request()->routeIs('apps*') ? 'show' : '' }}" id="apps">
@@ -57,7 +70,7 @@
                      <li class="nav-item {{ request()->routeIs('permissions*') ? 'active' : '' }}">
                         <a class="nav-link" data-bs-toggle="collapse" href="#permissions" role="button" aria-expanded="{{ request()->routeIs('permissions*') ? 'true' : 'false' }}" aria-controls="permissions">
                         <i class="link-icon" data-feather="shield"></i>
-                        <span class="link-title">Permission</span>
+                        <span class="link-title">Permissions</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                         </a>
                         <div class="collapse {{ request()->routeIs('permissions*') ? 'show' : '' }}" id="permissions">
@@ -83,7 +96,7 @@
                      <li class="nav-item {{ request()->routeIs('roles*') ? 'active' : '' }}">
                         <a class="nav-link" data-bs-toggle="collapse" href="#roles" role="button" aria-expanded="{{ request()->routeIs('roles*') ? 'true' : 'false' }}" aria-controls="roles">
                         <i class="link-icon" data-feather="users"></i>
-                        <span class="link-title">Role</span>
+                        <span class="link-title">Roles</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                         </a>
                         <div class="collapse {{ request()->routeIs('roles*') ? 'show' : '' }}" id="roles">
@@ -113,7 +126,7 @@
                <li class="nav-item {{ request()->routeIs('admins*') ? 'active' : '' }}">
                   <a class="nav-link" data-bs-toggle="collapse" href="#admins" role="button" aria-expanded="{{ request()->routeIs('admins*') ? 'true' : 'false' }}" aria-controls="admins">
                   <i class="link-icon" data-feather="user"></i>
-                  <span class="link-title">Admin</span>
+                  <span class="link-title">Admins</span>
                   <i class="link-arrow" data-feather="chevron-down"></i>
                   </a>
                   <div class="collapse {{ request()->routeIs('admins*') ? 'show' : '' }}" id="admins">

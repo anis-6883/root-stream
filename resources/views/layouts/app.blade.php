@@ -20,6 +20,8 @@
                 <!-- Footer -->
                 @include('layouts.includes._footer')
             </div>
+            
+            @include('layouts.includes._main-modal')
         </div>
         <!-- Scripts -->
         @include('layouts.includes._script')

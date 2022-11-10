@@ -7,6 +7,7 @@ use App\Http\Controllers\Install\InstallController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SportsTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Route::middleware(['install'])->group(function () {
         Route::resource('roles', RoleController::class);
         Route::resource('admins', AdminController::class);
         Route::resource('apps', AppController::class);
+        Route::resource('sports_types', SportsTypeController::class);
 
     });
 
