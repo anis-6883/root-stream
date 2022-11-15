@@ -92,6 +92,34 @@
                
           @endif
 
+          @if (Auth::user()->hasPermissionTo('highlight.access'))
+
+               <li class="nav-item nav-category">Highlight</li>
+
+               <li class="nav-item {{ request()->routeIs('highlights*') ? 'active' : '' }}">
+                  <a class="nav-link" data-bs-toggle="collapse" href="#highlights" role="button" aria-expanded="{{ request()->routeIs('highlights*') ? 'true' : 'false' }}" aria-controls="highlights">
+                  <i class="link-icon fas fa-file-video"></i>
+                  <span class="link-title">Highlights</span>
+                  <i class="link-arrow" data-feather="chevron-down"></i>
+                  </a>
+                  <div class="collapse {{ request()->routeIs('highlights*') ? 'show' : '' }}" id="highlights">
+                     <ul class="nav sub-menu">
+                        <li class="nav-item">
+                           <a href="{{ route('highlights.index') }}" class="nav-link {{ request()->routeIs('highlights.index') ? 'active' : '' }}">
+                              Highlight List
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{ route('highlights.create') }}" class="nav-link {{ request()->routeIs('highlights.create') ? 'active' : '' }}">
+                              Add Highlight
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               
+          @endif
+
           @if (Auth::user()->hasPermissionTo('app.access'))
 
                <li class="nav-item nav-category">App</li>

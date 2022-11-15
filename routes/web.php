@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Install\InstallController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HighlightController;
 use App\Http\Controllers\LiveMatchController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PopularSeriesController;
@@ -41,6 +42,7 @@ Route::middleware(['install'])->group(function () {
         Route::resource('sports_types', SportsTypeController::class);
         Route::resource('live_matches', LiveMatchController::class);
         Route::resource('popular_series', PopularSeriesController::class);
+        Route::resource('highlights', HighlightController::class);
 
     });
 

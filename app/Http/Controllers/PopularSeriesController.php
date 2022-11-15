@@ -18,49 +18,53 @@ class PopularSeriesController extends Controller
      */
     public function index(Request $request)
     {
-        $popular_series = PopularSeries::orderBy('id', 'DESC');
+        if(Auth::user()->can('popular_series.view')) 
+        {
+            $popular_series = PopularSeries::orderBy('id', 'DESC');
 
-        if ($request->ajax()) {
-            return DataTables::of($popular_series)
-                ->addColumn('status', function($series){
-                    if($series->status == 1){
-                        return '<span class="badge rounded-pill border border-success text-success">Active</span>';
-                    }else{
-                        return '<span class="badge rounded-pill border border-danger text-danger">In-Active</span>';
-                    }
-                })
-                ->addColumn('action', function($series){
-                    return '<div class="dropdown">
-                                <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Action
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="' . route('popular_series.edit', $series->id) . '" class="dropdown-item">
-                                            <i class="fas fa-edit"></i>
-                                                Edit
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <form action="' . route('popular_series.destroy', $series->id) . '" method="post" class="ajax-delete">'
-                                            . csrf_field() 
-                                            . method_field('DELETE') 
-                                            . '<button type="button" class="btn-remove dropdown-item">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                        Delete
-                                                </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                        </div>';
-                })
-                ->setRowId(function ($series) {
-                    return "row_" . $series->id;
-                })
-                ->rawColumns(['action', 'status'])
-                ->make(true);
+            if ($request->ajax()) {
+                return DataTables::of($popular_series)
+                    ->addColumn('status', function($series){
+                        if($series->status == 1){
+                            return '<span class="badge rounded-pill border border-success text-success">Active</span>';
+                        }else{
+                            return '<span class="badge rounded-pill border border-danger text-danger">In-Active</span>';
+                        }
+                    })
+                    ->addColumn('action', function($series){
+                        return '<div class="dropdown">
+                                    <button class="btn btn-primary btn-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Action
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="' . route('popular_series.edit', $series->id) . '" class="dropdown-item">
+                                                <i class="fas fa-edit"></i>
+                                                    Edit
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <form action="' . route('popular_series.destroy', $series->id) . '" method="post" class="ajax-delete">'
+                                                . csrf_field() 
+                                                . method_field('DELETE') 
+                                                . '<button type="button" class="btn-remove dropdown-item">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                            Delete
+                                                    </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                            </div>';
+                    })
+                    ->setRowId(function ($series) {
+                        return "row_" . $series->id;
+                    })
+                    ->rawColumns(['action', 'status'])
+                    ->make(true);
+            }
+            return view('popular_series.index');
         }
-        return view('popular_series.index');
+        abort(403);
     }
 
     /**
