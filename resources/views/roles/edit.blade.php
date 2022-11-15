@@ -6,7 +6,7 @@
 <nav class="page-breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class='fas fa-home text-muted'></i></a></li>
-        <li class="breadcrumb-item"> <a class="text-muted" href="{{ route('roles.index') }}">Role</a></li>
+        <li class="breadcrumb-item"> <a class="text-muted" href="{{ route('roles.index') }}">Roles</a></li>
         <li class="breadcrumb-item active" aria-current="page">Edit</li>
     </ol>
 </nav>

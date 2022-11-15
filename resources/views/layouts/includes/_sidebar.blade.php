@@ -14,21 +14,53 @@
          
           <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
              <a href="{{ route('dashboard') }}" class="nav-link">
-               <i class="link-icon" data-feather="box"></i>
+               <i class="link-icon fas fa-tachometer-alt"></i>
                <span class="link-title">Dashboard</span>
              </a>
           </li>
 
-          @if (Auth::user()->hasPermissionTo('sports_type.access'))
+          @if (Auth::user()->hasAnyPermission(['sports_type.access', 'live_match.access']))
 
                <li class="nav-item nav-category">Live Control</li>
 
-               <li class="nav-item {{ request()->routeIs('sports_types*') ? 'active' : '' }}">
-                  <a href="{{ route('sports_types.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="layers"></i>
-                    <span class="link-title">Sports Types</span>
-                  </a>
-               </li>
+               @if (Auth::user()->hasPermissionTo('sports_type.access'))
+
+                  <li class="nav-item {{ request()->routeIs('sports_types*') ? 'active' : '' }}">
+                     <a href="{{ route('sports_types.index') }}" class="nav-link">
+                     <i class="link-icon fas fa-layer-group"></i>
+                     <span class="link-title">Sports Types</span>
+                     </a>
+                  </li>
+
+               @endif
+
+               @if (Auth::user()->hasPermissionTo('live_match.access'))
+
+                  <li class="nav-item {{ request()->routeIs('live_matches*') ? 'active' : '' }}">
+                     <a class="nav-link" data-bs-toggle="collapse" href="#live_matches" role="button" aria-expanded="{{ request()->routeIs('live_matches*') ? 'true' : 'false' }}" aria-controls="live_matches">
+                     <i class="link-icon fas fa-desktop"></i>
+                     <span class="link-title">Live Matches</span>
+                     <i class="link-arrow" data-feather="chevron-down"></i>
+                     </a>
+                     <div class="collapse {{ request()->routeIs('live_matches*') ? 'show' : '' }}" id="live_matches">
+                        <ul class="nav sub-menu">
+                           <li class="nav-item">
+                              <a href="{{ route('live_matches.index') }}" class="nav-link {{ request()->routeIs('live_matches.index') ? 'active' : '' }}">
+                                 Live Match List
+                              </a>
+                           </li>
+                           <li class="nav-item">
+                              <a href="{{ route('live_matches.create') }}" class="nav-link {{ request()->routeIs('live_matches.create') ? 'active' : '' }}">
+                                 Add Live Match
+                              </a>
+                           </li>
+                        </ul>
+                     </div>
+                  </li>
+
+               @endif
+
+               
                
           @endif
 
@@ -38,7 +70,6 @@
 
                <li class="nav-item {{ request()->routeIs('apps*') ? 'active' : '' }}">
                   <a class="nav-link" data-bs-toggle="collapse" href="#apps" role="button" aria-expanded="{{ request()->routeIs('apps*') ? 'true' : 'false' }}" aria-controls="apps">
-                  {{-- <i class="link-icon" data-feather="apps"></i> --}}
                   <i class="link-icon fab fa-app-store-ios"></i>
                   <span class="link-title">Apps</span>
                   <i class="link-arrow" data-feather="chevron-down"></i>
@@ -69,7 +100,8 @@
 
                      <li class="nav-item {{ request()->routeIs('permissions*') ? 'active' : '' }}">
                         <a class="nav-link" data-bs-toggle="collapse" href="#permissions" role="button" aria-expanded="{{ request()->routeIs('permissions*') ? 'true' : 'false' }}" aria-controls="permissions">
-                        <i class="link-icon" data-feather="shield"></i>
+                        <i class="link-icon fas fa-shield-alt"></i>
+                        {{-- <i class="link-icon" data-feather="shield"></i> --}}
                         <span class="link-title">Permissions</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                         </a>
@@ -95,7 +127,7 @@
 
                      <li class="nav-item {{ request()->routeIs('roles*') ? 'active' : '' }}">
                         <a class="nav-link" data-bs-toggle="collapse" href="#roles" role="button" aria-expanded="{{ request()->routeIs('roles*') ? 'true' : 'false' }}" aria-controls="roles">
-                        <i class="link-icon" data-feather="users"></i>
+                        <i class="link-icon fas fa-users"></i>
                         <span class="link-title">Roles</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                         </a>
@@ -125,7 +157,7 @@
 
                <li class="nav-item {{ request()->routeIs('admins*') ? 'active' : '' }}">
                   <a class="nav-link" data-bs-toggle="collapse" href="#admins" role="button" aria-expanded="{{ request()->routeIs('admins*') ? 'true' : 'false' }}" aria-controls="admins">
-                  <i class="link-icon" data-feather="user"></i>
+                  <i class="link-icon 	fas fa-user-tie"></i>
                   <span class="link-title">Admins</span>
                   <i class="link-arrow" data-feather="chevron-down"></i>
                   </a>

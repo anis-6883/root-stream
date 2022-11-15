@@ -13,6 +13,13 @@ if ($(".select2").length) {
 // Dropify
 $(".dropify").dropify();
 
+// Date Time Picker
+$("#datepicker").flatpickr({
+    enableTime: true,
+    dateFormat: "Y-m-d H:i",
+    // allowInput: false,
+});
+
 // Dropify Icon
 $(".dropify-wrapper .dropify-message span.file-icon").html(
     "<i class='fas fa-cloud-upload-alt text-muted'></i><p>Drag and drop a file here or click</p>"
