@@ -64,6 +64,34 @@
                
           @endif
 
+          @if (Auth::user()->hasPermissionTo('popular_series.access'))
+
+               <li class="nav-item nav-category">Popular Series</li>
+
+               <li class="nav-item {{ request()->routeIs('popular_series*') ? 'active' : '' }}">
+                  <a class="nav-link" data-bs-toggle="collapse" href="#popular_series" role="button" aria-expanded="{{ request()->routeIs('popular_series*') ? 'true' : 'false' }}" aria-controls="popular_series">
+                  <i class="link-icon fas fa-file-video"></i>
+                  <span class="link-title">Popular Series</span>
+                  <i class="link-arrow" data-feather="chevron-down"></i>
+                  </a>
+                  <div class="collapse {{ request()->routeIs('popular_series*') ? 'show' : '' }}" id="popular_series">
+                     <ul class="nav sub-menu">
+                        <li class="nav-item">
+                           <a href="{{ route('popular_series.index') }}" class="nav-link {{ request()->routeIs('popular_series.index') ? 'active' : '' }}">
+                              Popular Series List
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{ route('popular_series.create') }}" class="nav-link {{ request()->routeIs('popular_series.create') ? 'active' : '' }}">
+                              Add Popular Series
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+               
+          @endif
+
           @if (Auth::user()->hasPermissionTo('app.access'))
 
                <li class="nav-item nav-category">App</li>
