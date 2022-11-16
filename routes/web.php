@@ -15,6 +15,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PopularSeriesController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SportsTypeController;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,8 @@ Route::middleware(['install'])->group(function () {
         Route::post('store_app_settings/{app_id}/{platform}', [ManageAppController::class, 'store_app_settings'])->name('store_app_settings');
         Route::get('notifications/deleteall', [NotificationController::class, 'deleteall']);
         Route::post('notifications/delete/selectedNotifications', [NotificationController::class, 'deleteSelectedNotifications'])->name('delete.selected.notification');
+        Route::post('subscriptions/reorder', [SubscriptionController::class, 'reorder']);
+        Route::get('subscriptions/get_subscriptions/{app_id}', [SubscriptionController::class, 'get_subscriptions']);
 
         Route::resource('permissions', PermissionController::class);
         Route::resource('roles', RoleController::class);
@@ -51,6 +54,7 @@ Route::middleware(['install'])->group(function () {
         Route::resource('popular_series', PopularSeriesController::class);
         Route::resource('highlights', HighlightController::class);
         Route::resource('notifications', NotificationController::class);
+        Route::resource('subscriptions', SubscriptionController::class);
 
     });
 

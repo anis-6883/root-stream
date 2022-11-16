@@ -149,6 +149,34 @@
 
          @endif
 
+         @if (Auth::user()->hasPermissionTo('subscription.access'))
+
+               <li class="nav-item nav-category">Subscription</li>
+
+               <li class="nav-item {{ request()->routeIs('subscriptions*') ? 'active' : '' }}">
+                  <a class="nav-link" data-bs-toggle="collapse" href="#subscriptions" role="button" aria-expanded="{{ request()->routeIs('subscriptions*') ? 'true' : 'false' }}" aria-controls="subscriptions">
+                  <i class="link-icon fas fa-dice-four"></i>
+                  <span class="link-title">Subscriptions</span>
+                  <i class="link-arrow" data-feather="chevron-down"></i>
+                  </a>
+                  <div class="collapse {{ request()->routeIs('subscriptions*') ? 'show' : '' }}" id="subscriptions">
+                     <ul class="nav sub-menu">
+                        <li class="nav-item">
+                           <a href="{{ route('subscriptions.index') }}" class="nav-link {{ request()->routeIs('subscriptions.index') ? 'active' : '' }}">
+                           Subscription List
+                        </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{ route('subscriptions.create') }}" class="nav-link {{ request()->routeIs('subscriptions.create') ? 'active' : '' }}">
+                           Add Subscription
+                        </a>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+
+         @endif
+
          @if (Auth::user()->hasPermissionTo('app.access'))
 
                <li class="nav-item nav-category">App</li>
