@@ -64,65 +64,75 @@
                
           @endif
 
-          @if (Auth::user()->hasPermissionTo('popular_series.access'))
+          @if (Auth::user()->hasAnyPermission(['popular_series.access', 'highlight.access']))
 
-               <li class="nav-item nav-category">Popular Series</li>
+               <li class="nav-item nav-category">Popular Stream</li>
 
-               <li class="nav-item {{ request()->routeIs('popular_series*') ? 'active' : '' }}">
-                  <a class="nav-link" data-bs-toggle="collapse" href="#popular_series" role="button" aria-expanded="{{ request()->routeIs('popular_series*') ? 'true' : 'false' }}" aria-controls="popular_series">
-                  <i class="link-icon fas fa-file-video"></i>
-                  <span class="link-title">Popular Series</span>
-                  <i class="link-arrow" data-feather="chevron-down"></i>
-                  </a>
-                  <div class="collapse {{ request()->routeIs('popular_series*') ? 'show' : '' }}" id="popular_series">
-                     <ul class="nav sub-menu">
-                        <li class="nav-item">
-                           <a href="{{ route('popular_series.index') }}" class="nav-link {{ request()->routeIs('popular_series.index') ? 'active' : '' }}">
-                              Popular Series List
-                           </a>
-                        </li>
-                        <li class="nav-item">
-                           <a href="{{ route('popular_series.create') }}" class="nav-link {{ request()->routeIs('popular_series.create') ? 'active' : '' }}">
-                              Add Popular Series
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-               </li>
+               @if (Auth::user()->hasPermissionTo('popular_series.access'))
+
+
+                     <li class="nav-item {{ request()->routeIs('popular_series*') ? 'active' : '' }}">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#popular_series" role="button" aria-expanded="{{ request()->routeIs('popular_series*') ? 'true' : 'false' }}" aria-controls="popular_series">
+                        <i class="link-icon fas fa-file-video"></i>
+                        <span class="link-title">Popular Series</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('popular_series*') ? 'show' : '' }}" id="popular_series">
+                           <ul class="nav sub-menu">
+                              <li class="nav-item">
+                                 <a href="{{ route('popular_series.index') }}" class="nav-link {{ request()->routeIs('popular_series.index') ? 'active' : '' }}">
+                                    Popular Series List
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('popular_series.create') }}" class="nav-link {{ request()->routeIs('popular_series.create') ? 'active' : '' }}">
+                                    Add Popular Series
+                                 </a>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
                
-          @endif
+               @endif
 
-          @if (Auth::user()->hasPermissionTo('highlight.access'))
+               @if (Auth::user()->hasPermissionTo('highlight.access'))
 
-               <li class="nav-item nav-category">Highlight</li>
+                     <li class="nav-item {{ request()->routeIs('highlights*') ? 'active' : '' }}">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#highlights" role="button" aria-expanded="{{ request()->routeIs('highlights*') ? 'true' : 'false' }}" aria-controls="highlights">
+                        <i class="link-icon fas fa-file-video"></i>
+                        <span class="link-title">Highlights</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                        </a>
+                        <div class="collapse {{ request()->routeIs('highlights*') ? 'show' : '' }}" id="highlights">
+                           <ul class="nav sub-menu">
+                              <li class="nav-item">
+                                 <a href="{{ route('highlights.index') }}" class="nav-link {{ request()->routeIs('highlights.index') ? 'active' : '' }}">
+                                    Highlight List
+                                 </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a href="{{ route('highlights.create') }}" class="nav-link {{ request()->routeIs('highlights.create') ? 'active' : '' }}">
+                                    Add Highlight
+                                 </a>
+                              </li>
+                           </ul>
+                        </div>
+                     </li>
+                     
+               @endif
 
-               <li class="nav-item {{ request()->routeIs('highlights*') ? 'active' : '' }}">
-                  <a class="nav-link" data-bs-toggle="collapse" href="#highlights" role="button" aria-expanded="{{ request()->routeIs('highlights*') ? 'true' : 'false' }}" aria-controls="highlights">
-                  <i class="link-icon fas fa-file-video"></i>
-                  <span class="link-title">Highlights</span>
-                  <i class="link-arrow" data-feather="chevron-down"></i>
-                  </a>
-                  <div class="collapse {{ request()->routeIs('highlights*') ? 'show' : '' }}" id="highlights">
-                     <ul class="nav sub-menu">
-                        <li class="nav-item">
-                           <a href="{{ route('highlights.index') }}" class="nav-link {{ request()->routeIs('highlights.index') ? 'active' : '' }}">
-                              Highlight List
-                           </a>
-                        </li>
-                        <li class="nav-item">
-                           <a href="{{ route('highlights.create') }}" class="nav-link {{ request()->routeIs('highlights.create') ? 'active' : '' }}">
-                              Add Highlight
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-               </li>
-               
           @endif
 
           @if (Auth::user()->hasPermissionTo('app.access'))
 
                <li class="nav-item nav-category">App</li>
+
+               <li class="nav-item {{ request()->routeIs('manage_app') ? 'active' : '' }}">
+                  <a href="{{ route('manage_app') }}" class="nav-link">
+                    <i class="link-icon fab fa-google-play"></i>
+                    <span class="link-title">Manage Apps</span>
+                  </a>
+               </li>
 
                <li class="nav-item {{ request()->routeIs('apps*') ? 'active' : '' }}">
                   <a class="nav-link" data-bs-toggle="collapse" href="#apps" role="button" aria-expanded="{{ request()->routeIs('apps*') ? 'true' : 'false' }}" aria-controls="apps">

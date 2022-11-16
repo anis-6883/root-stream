@@ -7,7 +7,9 @@ use App\Http\Controllers\Install\InstallController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HighlightController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiveMatchController;
+use App\Http\Controllers\ManageAppController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PopularSeriesController;
 use App\Http\Controllers\RoleController;
@@ -28,12 +30,14 @@ Route::middleware(['install'])->group(function () {
 
     Auth::routes(['register' => false]);
 
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('/', [HomeController::class, 'index']);
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::middleware(['auth'])->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('manage_app/{app_unique_id?}', [ManageAppController::class, 'index'])->name('manage_app');
+        Route::post('store_app_settings/{app_id}/{platform}', [ManageAppController::class, 'store_app_settings'])->name('store_app_settings');
 
         Route::resource('permissions', PermissionController::class);
         Route::resource('roles', RoleController::class);
