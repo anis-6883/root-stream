@@ -60,8 +60,6 @@
 
                @endif
 
-               
-               
           @endif
 
           @if (Auth::user()->hasAnyPermission(['popular_series.access', 'highlight.access']))
@@ -123,14 +121,42 @@
 
           @endif
 
-          @if (Auth::user()->hasPermissionTo('app.access'))
+          @if (Auth::user()->hasPermissionTo('notification.access'))
+
+               <li class="nav-item nav-category">Notification</li>
+
+               <li class="nav-item {{ request()->routeIs('notifications*') ? 'active' : '' }}">
+                  <a class="nav-link" data-bs-toggle="collapse" href="#notifications" role="button" aria-expanded="{{ request()->routeIs('notifications*') ? 'true' : 'false' }}" aria-controls="notifications">
+                  <i class="link-icon fas fa-bell"></i>
+                  <span class="link-title">Notifications</span>
+                  <i class="link-arrow" data-feather="chevron-down"></i>
+                  </a>
+                  <div class="collapse {{ request()->routeIs('notifications*') ? 'show' : '' }}" id="notifications">
+                     <ul class="nav sub-menu">
+                        <li class="nav-item">
+                           <a href="{{ route('notifications.index') }}" class="nav-link {{ request()->routeIs('notifications.index') ? 'active' : '' }}">
+                           Notification List
+                        </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{ route('notifications.create') }}" class="nav-link {{ request()->routeIs('notifications.create') ? 'active' : '' }}">
+                           Add Notification
+                        </a>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+
+         @endif
+
+         @if (Auth::user()->hasPermissionTo('app.access'))
 
                <li class="nav-item nav-category">App</li>
 
                <li class="nav-item {{ request()->routeIs('manage_app') ? 'active' : '' }}">
                   <a href="{{ route('manage_app') }}" class="nav-link">
-                    <i class="link-icon fab fa-google-play"></i>
-                    <span class="link-title">Manage Apps</span>
+                     <i class="link-icon fab fa-google-play"></i>
+                     <span class="link-title">Manage Apps</span>
                   </a>
                </li>
 
@@ -155,10 +181,10 @@
                      </ul>
                   </div>
                </li>
-               
-          @endif
+                  
+         @endif
 
-          @if (Auth::user()->hasAnyPermission(['permission.access', 'role.access']))
+         @if (Auth::user()->hasAnyPermission(['permission.access', 'role.access']))
 
                <li class="nav-item nav-category">Role & Permission</li>
 
@@ -167,7 +193,6 @@
                      <li class="nav-item {{ request()->routeIs('permissions*') ? 'active' : '' }}">
                         <a class="nav-link" data-bs-toggle="collapse" href="#permissions" role="button" aria-expanded="{{ request()->routeIs('permissions*') ? 'true' : 'false' }}" aria-controls="permissions">
                         <i class="link-icon fas fa-shield-alt"></i>
-                        {{-- <i class="link-icon" data-feather="shield"></i> --}}
                         <span class="link-title">Permissions</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                         </a>
@@ -215,9 +240,9 @@
                      
                @endif
 
-          @endif
+         @endif
 
-          @if (Auth::user()->hasPermissionTo('admin.access'))
+         @if (Auth::user()->hasPermissionTo('admin.access'))
 
                <li class="nav-item nav-category">Admin</li>
 
@@ -243,7 +268,7 @@
                   </div>
                </li>
 
-          @endif
+         @endif
           
        </ul>
     </div>

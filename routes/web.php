@@ -10,6 +10,7 @@ use App\Http\Controllers\HighlightController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiveMatchController;
 use App\Http\Controllers\ManageAppController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PopularSeriesController;
 use App\Http\Controllers\RoleController;
@@ -38,6 +39,8 @@ Route::middleware(['install'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('manage_app/{app_unique_id?}', [ManageAppController::class, 'index'])->name('manage_app');
         Route::post('store_app_settings/{app_id}/{platform}', [ManageAppController::class, 'store_app_settings'])->name('store_app_settings');
+        Route::get('notifications/deleteall', [NotificationController::class, 'deleteall']);
+        Route::post('notifications/delete/selectedNotifications', [NotificationController::class, 'deleteSelectedNotifications'])->name('delete.selected.notification');
 
         Route::resource('permissions', PermissionController::class);
         Route::resource('roles', RoleController::class);
@@ -47,6 +50,7 @@ Route::middleware(['install'])->group(function () {
         Route::resource('live_matches', LiveMatchController::class);
         Route::resource('popular_series', PopularSeriesController::class);
         Route::resource('highlights', HighlightController::class);
+        Route::resource('notifications', NotificationController::class);
 
     });
 
