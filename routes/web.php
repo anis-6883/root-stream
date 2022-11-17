@@ -16,6 +16,7 @@ use App\Http\Controllers\PopularSeriesController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SportsTypeController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,12 +39,13 @@ Route::middleware(['install'])->group(function () {
     Route::middleware(['auth'])->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('manage_app/{app_unique_id?}', [ManageAppController::class, 'index'])->name('manage_app');
-        Route::post('store_app_settings/{app_id}/{platform}', [ManageAppController::class, 'store_app_settings'])->name('store_app_settings');
-        Route::get('notifications/deleteall', [NotificationController::class, 'deleteall']);
-        Route::post('notifications/delete/selectedNotifications', [NotificationController::class, 'deleteSelectedNotifications'])->name('delete.selected.notification');
-        Route::post('subscriptions/reorder', [SubscriptionController::class, 'reorder']);
-        Route::get('subscriptions/get_subscriptions/{app_id}', [SubscriptionController::class, 'get_subscriptions']);
+        Route::get('/manage_app/{app_unique_id?}', [ManageAppController::class, 'index'])->name('manage_app');
+        Route::post('/store_app_settings/{app_id}/{platform}', [ManageAppController::class, 'store_app_settings'])->name('store_app_settings');
+        Route::get('/notifications/deleteall', [NotificationController::class, 'deleteall']);
+        Route::post('/notifications/delete/selectedNotifications', [NotificationController::class, 'deleteSelectedNotifications'])->name('delete.selected.notification');
+        Route::post('/subscriptions/reorder', [SubscriptionController::class, 'reorder']);
+        Route::get('/subscriptions/get_subscriptions/{app_id}', [SubscriptionController::class, 'get_subscriptions']);
+        Route::get('/users/app/{app_unique_id}', [UserController::class, 'index']);
 
         Route::resource('permissions', PermissionController::class);
         Route::resource('roles', RoleController::class);
@@ -55,6 +57,7 @@ Route::middleware(['install'])->group(function () {
         Route::resource('highlights', HighlightController::class);
         Route::resource('notifications', NotificationController::class);
         Route::resource('subscriptions', SubscriptionController::class);
+        Route::resource('users', UserController::class);
 
     });
 
