@@ -15,6 +15,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PopularSeriesController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SportsTypeController;
@@ -52,6 +53,12 @@ Route::middleware(['install'])->group(function () {
         Route::get('/users/app/{app_unique_id}', [UserController::class, 'index']);
         Route::get('/payments/{app_unique_id?}', [PaymentController::class, 'index']);
         Route::get('/payments/{id}', [PaymentController::class, 'show'])->name('payments.show');
+        //Profile Controller
+        Route::get('profile/show', [ProfileController::class, 'show'])->name('profile.show');
+        Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::post('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('password/change', [ProfileController::class, 'password_change'])->name('password.change');
+        Route::post('password/update', [ProfileController::class, 'update_password'])->name('password.update');
         //Settings Controller
         Route::any('/general_settings', [SettingController::class, 'general'])->name('general_settings');
         Route::any('/cache_clear', [SettingController::class, 'cache_clear'])->name('cache_clear');
