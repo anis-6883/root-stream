@@ -5,7 +5,7 @@
     <meta name="author" content="Muhammad Anisuzzaman">
     <meta name="description" content="Final Year Project">
     <meta name="keywords" content="RootStream">
-    <link rel="shortcut icon" href="{{ asset('public/default/favicon.png') }}"/>
+    <link rel="icon" href="{{ get_icon() }}" type="image/x-icon"/>
 
     <title>RootStream @yield('page_title')</title>
     

@@ -19,6 +19,13 @@
              </a>
           </li>
 
+          <li class="nav-item">
+             <a href="{{ route('cache_clear') }}" class="nav-link">
+               <i class="link-icon fas fa-trash"></i>
+               <span class="link-title">Cache Clean</span>
+             </a>
+          </li>
+
           @if (Auth::user()->hasAnyPermission(['sports_type.access', 'live_match.access']))
 
                <li class="nav-item nav-category">Live Control</li>
@@ -226,6 +233,34 @@
                         <li class="nav-item">
                            <a href="{{ route('apps.create') }}" class="nav-link {{ request()->routeIs('apps.create') ? 'active' : '' }}">
                               Add App
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </li>
+                  
+         @endif
+
+         @if (Auth::user()->hasPermissionTo('administration.access'))
+
+               <li class="nav-item nav-category">Administration</li>
+
+               <li class="nav-item {{ request()->routeIs('general_settings') ? 'active' : '' }}">
+                  <a class="nav-link" data-bs-toggle="collapse" href="#general_settings" role="button" aria-expanded="{{ request()->routeIs('general_settings') ? 'true' : 'false' }}" aria-controls="general_settings">
+                  <i class="link-icon fas fa-cogs"></i>
+                  <span class="link-title">General Settings</span>
+                  <i class="link-arrow" data-feather="chevron-down"></i>
+                  </a>
+                  <div class="collapse {{ request()->routeIs('general_settings') ? 'show' : '' }}" id="general_settings">
+                     <ul class="nav sub-menu">
+                        <li class="nav-item">
+                           <a href="{{ route('general_settings') }}" class="nav-link {{ request()->routeIs('general_settings') ? 'active' : '' }}">
+                              General Settings
+                           </a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="{{ route('database_backup') }}" class="nav-link">
+                              Database Backup
                            </a>
                         </li>
                      </ul>

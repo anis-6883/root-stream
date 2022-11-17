@@ -5,6 +5,7 @@ use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Install\InstallController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BackupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HighlightController;
 use App\Http\Controllers\HomeController;
@@ -15,9 +16,11 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PopularSeriesController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SportsTypeController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WebsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +52,11 @@ Route::middleware(['install'])->group(function () {
         Route::get('/users/app/{app_unique_id}', [UserController::class, 'index']);
         Route::get('/payments/{app_unique_id?}', [PaymentController::class, 'index']);
         Route::get('/payments/{id}', [PaymentController::class, 'show'])->name('payments.show');
+        //Settings Controller
+        Route::any('/general_settings', [SettingController::class, 'general'])->name('general_settings');
+        Route::any('/cache_clear', [SettingController::class, 'cache_clear'])->name('cache_clear');
+        Route::post('/store_settings', [SettingController::class ,'store_settings'])->name('store_settings');
+        Route::any('/database_backup', [BackupController::class, 'index'])->name('database_backup');
 
         Route::resource('permissions', PermissionController::class);
         Route::resource('roles', RoleController::class);
@@ -73,3 +81,5 @@ Route::get('/install/create_user', [InstallController::class, 'create_user']);
 Route::post('/install/store_user', [InstallController::class, 'store_user']);
 Route::get('/install/system_settings', [InstallController::class, 'system_settings']);
 Route::post('/install/finish', [InstallController::class, 'final_touch']);
+
+Route::get('/server_cache_clear', [WebsiteController::class, 'server_cache_clear']);
