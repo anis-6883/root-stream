@@ -164,6 +164,17 @@
 
                @endif
 
+               @if (Auth::user()->hasPermissionTo('payment.access'))
+
+                  <li class="nav-item {{ request()->routeIs('payments') ? 'active' : '' }}">
+                     <a href="{{ url('payments') }}" class="nav-link">
+                        <i class="link-icon fas fa-dollar-sign"></i>
+                        <span class="link-title">Payments</span>
+                     </a>
+                  </li>
+
+               @endif
+
                <li class="nav-item {{ request()->routeIs('subscriptions*') ? 'active' : '' }}">
                   <a class="nav-link" data-bs-toggle="collapse" href="#subscriptions" role="button" aria-expanded="{{ request()->routeIs('subscriptions*') ? 'true' : 'false' }}" aria-controls="subscriptions">
                   <i class="link-icon fas fa-dice-four"></i>

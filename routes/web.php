@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LiveMatchController;
 use App\Http\Controllers\ManageAppController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PopularSeriesController;
 use App\Http\Controllers\RoleController;
@@ -46,6 +47,8 @@ Route::middleware(['install'])->group(function () {
         Route::post('/subscriptions/reorder', [SubscriptionController::class, 'reorder']);
         Route::get('/subscriptions/get_subscriptions/{app_id}', [SubscriptionController::class, 'get_subscriptions']);
         Route::get('/users/app/{app_unique_id}', [UserController::class, 'index']);
+        Route::get('/payments/{app_unique_id?}', [PaymentController::class, 'index']);
+        Route::get('/payments/{id}', [PaymentController::class, 'show'])->name('payments.show');
 
         Route::resource('permissions', PermissionController::class);
         Route::resource('roles', RoleController::class);
