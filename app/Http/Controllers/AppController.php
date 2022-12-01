@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AppContent;
 use App\Models\AppModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -158,7 +159,8 @@ class AppController extends Controller
         $app->smtp_encryption = $request->smtp_encryption;
         $app->status = $request->status;
         
-        if($request->hasFile('app_logo')){
+        if($request->hasFile('app_logo'))
+        {
             $file = $request->file('app_logo');
             $file_name = 'APP_' . rand() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(base_path('public/uploads/images/apps/'), $file_name);
@@ -295,7 +297,7 @@ class AppController extends Controller
             
             $app->delete();
 
-            // AppContent::where('app_id', $id)->delete();
+            AppContent::where('app_id', $id)->delete();
 
             if (!$request->ajax()) {
                 return back()->with('success', _lang('Information has been deleted'));

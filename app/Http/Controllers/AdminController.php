@@ -25,7 +25,7 @@ class AdminController extends Controller
 
         if(Auth::user()->can('admin.view')) 
         {
-            $admins = User::orderBy('id', 'DESC')->get();
+            $admins = User::where('user_type', '<>', 'user')->orderBy('id', 'DESC')->get();
 
             if($request->ajax()) {
                 return DataTables::of($admins)

@@ -29,7 +29,7 @@
                                         <span class="required text-danger"> *</span>
                                     </div>
                                     <div class="d-flex flex-wrap mb-3">
-                                        <div class="form-check flex-shrink-0" style="width: 150px">
+                                        <div class="form-check" style="margin: 0px 10px 10px 0px">
                                             <label class="form-check-label">
                                                 <span class="form-check-sign">Select All</span>
                                                 <input class="form-check-input" type="checkbox" value="" id="checkAll">
@@ -37,7 +37,7 @@
                                         </div>
 
                                         @foreach ($apps as $app)
-                                            <div class="form-check flex-shrink-0" style="width: 150px">
+                                            <div class="form-check" style="margin: 0px 10px 10px 0px">
                                                 <label class="form-check-label">
                                                     <span class="form-check-sign">
                                                         <img src="{{ asset($app->app_logo) }}" width="20px" height="20px" style="margin-right: 5px; border-radius: 10px;margin-bottom: 5px;">

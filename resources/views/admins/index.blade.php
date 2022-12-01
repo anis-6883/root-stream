@@ -55,7 +55,7 @@
         "columns" : [
 
             { data : "image", name : "image" },
-            { data : "fullname", name : "fullname" },
+            { data : "name", name : "name" },
             { data : "email", name : "email" },
             { data : "role", name : "role" },
             { data : "status", name : "status", className : "text-center", orderable : false, searchable : false },

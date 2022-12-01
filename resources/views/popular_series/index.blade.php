@@ -52,10 +52,10 @@
         ajax: _url + "/popular_series",
         "columns" : [
 
-			{ data : "title", name : "title", className : "title" },
-        	{ data : "action_url", name : "action_url", className : "action_url" },
-        	{ data : "status", name : "status", className : "status" },
-			{ data : "action", name : "action", orderable : false, searchable : false, className : "text-center" }
+            { data : "title", name : "title", className : "title" },
+            { data : "action_url", name : "action_url", className : "action_url" },
+            { data : "status", name : "status", className : "status", className : "text-center" },
+            { data : "action", name : "action", orderable : false, searchable : false, className : "text-center" }
 
         ],
         responsive: true,

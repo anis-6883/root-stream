@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SportsType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -112,6 +113,8 @@ class SportsTypeController extends Controller
 
         $sports_type->save();
 
+        Cache::forget('sports_types');
+
         if (!$request->ajax()) {
             return redirect('sports_types')->with('success', _lang('Information has been added sucessfully!'));
         } else {
@@ -169,6 +172,8 @@ class SportsTypeController extends Controller
 
         $sports_type->save();
 
+        Cache::forget('sports_types');
+
         if (!$request->ajax()) {
             return redirect('sports_types')->with('success', _lang('Information has updated added sucessfully!'));
         } else {
@@ -186,6 +191,8 @@ class SportsTypeController extends Controller
     {
         $sports_type = SportsType::find($id);
         $sports_type->delete();
+
+        Cache::forget('sports_types');
 
         if (!$request->ajax()) {
             return back()->with('success', _lang('Information has been deleted sucessfully!'));

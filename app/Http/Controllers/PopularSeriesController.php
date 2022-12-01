@@ -6,6 +6,7 @@ use App\Models\AppModel;
 use App\Models\PopularSeries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -118,6 +119,11 @@ class PopularSeriesController extends Controller
 
         $series->save();
 
+        for ($i=0; $i < count($request->apps); $i++) { 
+            $app_unique_id = AppModel::find($request->apps[$i])->app_unique_id;
+            Cache::forget('popular_series_' . $app_unique_id);
+        }
+
         if (!$request->ajax()) {
             return redirect('popular_series')->with('success', _lang('Information has been added.'));
         } else {
@@ -178,6 +184,11 @@ class PopularSeriesController extends Controller
 
         $series->save();
 
+        for ($i=0; $i < count($request->apps); $i++) { 
+            $app_unique_id = AppModel::find($request->apps[$i])->app_unique_id;
+            Cache::forget('popular_series_' . $app_unique_id);
+        }
+
         if (!$request->ajax()) {
             return redirect('popular_series')->with('success', _lang('Information has updated added.'));
         } else {
@@ -194,6 +205,13 @@ class PopularSeriesController extends Controller
     public function destroy(Request $request, $id)
     {
         $series = PopularSeries::find($id);
+        $apps = json_decode($series->apps);
+
+        for ($i=0; $i < count($apps); $i++) { 
+            $app_unique_id = AppModel::find($apps[$i])->app_unique_id;
+            Cache::forget('popular_series_' . $app_unique_id);
+        }
+
         $series->delete();
 
         if (!$request->ajax()) {
