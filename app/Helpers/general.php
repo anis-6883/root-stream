@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 if ( ! function_exists('_lang')){
@@ -25,6 +26,14 @@ if ( ! function_exists('get_location')){
         return $details;
     }
 }
+
+if ( ! function_exists('get_email')){
+    function get_email($data = ''){ 
+        $email = substr($data, strpos($data, "_") + 1);
+        return $email;
+    }
+}
+
 
 if ( ! function_exists('getGeneratedToken')){
     function getGeneratedToken($source_url, $signedKey, $userIP)

@@ -46,11 +46,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getFullNameAttribute()
-    {
-        return $this->first_name . " " . $this->last_name;
-    }
-
     public static function roleHasPermissions($role, $permissions) 
     {
         $hasPermission = true;
@@ -61,5 +56,30 @@ class User extends Authenticatable
             }
         }
         return $hasPermission;
+    }
+
+    public function getDisplayEmailAttribute()
+    {
+        return get_email($this->email);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function app()
+    {
+        return $this->hasOne('App\Models\AppModel', 'id', 'app_id')->withDefault();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function subscription()
+    {
+        return $this->hasOne('App\Models\Subscription', 'id', 'subscription_id')->withDefault(['id' => 0, 'name' => 'Free User']);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\ApiController;
+use App\Http\Controllers\Api\v1\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,5 +24,19 @@ Route::middleware('check_api_key')->group(function () {
     Route::post('/v1/highlights/{app_unique_id}', [ApiController::class, 'highlights']);
     Route::post('/v1/popular_series/{app_unique_id}', [ApiController::class, 'popular_series']);
     Route::post('/v1/settings/{app_unique_id}/{platform?}', [ApiController::class, 'settings']);
+
+    // AuthController
+    Route::post('/v1/signup', [AuthController::class, 'signup']);
+    Route::post('/v1/signin', [AuthController::class, 'signin']);
+    // Route::post('/v1/forget_password', [AuthController::class, 'forget_password']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+
+        //AuthController
+        Route::post('/v1/user', [AuthController::class, 'user']);
+        Route::post('/v1/user_update', [AuthController::class, 'user_update']);
+        Route::post('/v1/change_password', [AuthController::class, 'change_password']);
+
+    });
 
 });
